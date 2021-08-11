@@ -1,0 +1,56 @@
+
+All of our test classes are going to inherit from the BaseTests class:
+In the BaseTests class, we see that this is where we create the driver.
+This is where we actually set up our browser and we launch the application.
+Also, we have this homePage handle here:
+ protected HomePage homePage;
+ ...........
+ homePage = new HomePage(driver);
+
+
+public class LoginTests extends BaseTests {
+
+
+ @Test
+    public void testSuccessfulLogin(){
+        LoginPage loginPage = homePage.clickFormAuthentication();
+        loginPage.setUsername("tomsmith");
+        loginPage.setPassword("SuperSecretPassword!");
+        SecureAreaPage secureAreaPage = loginPage.clickLoginButton();
+        System.out.println(secureAreaPage.getAlertText());
+        assertTrue(secureAreaPage.getAlertText()
+                        .contains("You logged into a secure area!"),
+                "Alert text is incorrect");
+
+    }
+
+    }
+
+
+
+    Selenium WebDriver is not a verification tool. It is only used to automate the actions on the browser.
+    So, we need to add a verification/assertion tool to our framework to be able to actually run these as tests.
+
+
+    Add TestNG to pom:
+
+    https://mvnrepository.com/artifact/org.testng/testng/6.14.3
+
+
+    Add @Test Annotation
+    Add @BeforeClass for set up
+    Add @AfterClass for tear down
+    Remove psvm, TestNg will run it
+
+
+    The way that this will work is:
+
+    It will first call the setup because of the @BeforeClass annotation
+    Then it will call any of the methods that are annotated with @Test
+    Then after those tests have run, it will call this @AfterClass annotated method tearDown to quit
+    We can get rid of this main method as well. We no longer need it because now TestNG will come in and find what it is that it wants to run.
+
+
+
+
+

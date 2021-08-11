@@ -1,0 +1,9 @@
+
+
+Dropdown menus are not represented by the WebElement class. They have their own special class.
+instead of doing driver.findElement which would return a web element — again, the dropdown is not a web element —
+ there's actually a class just for dropdown elements called Select.
+
+
+ We need to go back to our pom.xml file and we're going to add another Selenium dependency here.
+  If we go back to our Maven repository and let's look for “selenium support”

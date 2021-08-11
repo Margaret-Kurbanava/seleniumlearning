@@ -1,0 +1,122 @@
+package test;
+
+import org.testng.annotations.*;
+
+public class KBTestNGAnnotations {
+
+    // To make TestNG work- edit run config-  add >VM argument: "-Dtestng.dtd.http=true"
+
+    //To run using testNG xml- select test kind 'Suite' and add path to file to run config
+
+    //Annotations can be added in any order. Will be always executed in defined order:
+
+    /*
+    Before Suite - Chrome-Set Up System Property
+    Before Test- Open Chrome
+    Before Class - open test app
+
+    Before Method - Sign in
+    Perform test Test1
+    After Method- Sign out
+
+    Before Method - Sign in
+    Perform test Test2
+    After Method- Sign out
+
+    After Class- Close test app
+    After Test -Close Chrome
+    After suite - Cleanup cookies
+*/
+
+
+    //@Test can be added at class and at method levels. in both cases it will run methods in alphabetical order. Use @Test(priority = 1) to define the order.
+    // Also, only public methods are run.
+
+
+    // Groups are used to create test runs. @Test (groups = "smoke"),  @Test (groups = { "smoke", "regression" } ) You can define groups for run using XML file
+
+
+   /* Also, you can add dependencies to other tests. Test will be skipped if related test will fail - @Test (dependsOnMethods = "test1_SetUpChrome")
+    + the same dependencies for  groups + @Test  (dependsOnGroups = "env_application") */
+
+    //other features: you can also create data driven tests, specify browsers and other parameters for tests
+
+
+
+
+
+
+    @BeforeSuite
+
+    public void setUp(){
+        MySimpleWebTest mySimpleWebTest = new MySimpleWebTest();
+        mySimpleWebTest.initWebDriver();
+
+        System.out.println("Before Suite - Chrome-Set Up System Property");
+    }
+
+    @BeforeTest
+    public void doBeforeTest(){
+        System.out.println("Before Test- Open Chrome");
+    }
+
+    @BeforeClass
+
+    public void doBeforeClass(){
+        System.out.println("Before Class - open test app");
+    }
+
+
+
+    @BeforeMethod
+            public void doBeforeMethod(){
+            System.out.println("Before Method - Sign in");
+    }
+
+
+
+
+
+    @Test(priority = 2)
+
+    public void test1(){
+        System.out.println("Perform test Test1");
+    }
+
+
+
+    @Test(priority = 1)
+
+    public void test2(){
+        System.out.println("Perform test Test2");
+    }
+
+
+
+
+
+
+    @AfterSuite
+
+    public void cleanUp(){
+        System.out.println("After suite - Cleanup cookies");
+    }
+
+    @AfterTest
+    public void doAfterTest(){
+        System.out.println("After Test -Close Chrome");
+    }
+
+
+    @AfterClass
+    public void doAfterClass(){
+        System.out.println("After Class- Close test app");
+    }
+
+    @AfterMethod
+    public void doAfterMethod(){
+        System.out.println("After Method- Sign out");
+    }
+
+
+}

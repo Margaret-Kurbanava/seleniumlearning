@@ -1,0 +1,102 @@
+package test;
+
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
+
+public class KBTestNGAssertions {
+
+   /* assertTrue - verifies a condition is true - the condition must return true to pass
+    assertFalse - verifies a condition is false- the condition must return false to pass
+    assertSame - verifies that two objects refer to the same object
+    assertNotSame - verifies that two objects do not refer to the same object
+    assertNotNull - verifies that an object is not null
+    assertEquals - verifies that two objects are equal*/
+
+
+   /* JUnit has a class, junit.framework.Assert. TestNG turned around and added the same JUnit class, org.testng.AssertJUnit, to its distribution.
+    TestNG added the same class as JUnit to guarantee all assertions keep working if we migrate our test from JUnit to TestNG.
+    TestNG also added another class called org.testng.Assert.
+    The main difference between JUnit’s class and TestNG’s class is the syntax. Their parameters are available in reverse order.
+    For example:
+JUnit Syntax:   assertEquals("", expected, actual);
+TestNG Syntax: assertEquals(actual, expected, "");*/
+
+
+
+    /*On using Hard (regular) Assert - test stops immediately after failure, steps will not be executed. Moves to the next annotation.
+    Soft asserts- continues execution after fail. But you have to add  softassert.assertAll(); at the end of test to see the failure, otherwise- all will pass. */
+
+
+ Init init = new Init();
+
+
+    @BeforeSuite
+
+   public void initiateTheDriver(){
+        try {
+            init.initDriver();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /*@BeforeTest
+
+    public void openPage(){
+        init.login();
+        System.out.println("1. Login");
+    }*/
+
+
+
+
+    @Test(priority = 1)
+
+    public void test1(){
+        System.out.println("3. Perform test Test1");
+    }
+
+    @Test
+    public void test2HardAssert(){
+        System.out.println("2. Perform test Test2");
+        Assert.assertEquals(false, false, "assertEquals failed");
+        Assert.assertFalse(false, "assertFalse failed");//the condition must return false to pass, otherwise-- message is displayed
+        Assert.assertTrue(true, "assertTrue failed");//the condition must return true to pass
+    }
+
+
+    @Test
+    public void test3SoftAssert(){
+
+        SoftAssert softassert = new SoftAssert();
+
+        System.out.println("4. Perform test Test3");
+        softassert.assertEquals(false, true, "assertEquals failed");
+        softassert.assertFalse(false, "assertFalse failed");//the condition must return false to pass, otherwise-- message is displayed
+        softassert.assertTrue(true, "assertTrue failed");//the condition must return true to pass
+        softassert.assertAll();
+
+
+    }
+
+
+
+
+
+
+    @AfterSuite
+
+    public void stop(){
+        init.quitWebDriver();
+        System.out.println("5. Logout");
+    }
+
+
+}
+
+

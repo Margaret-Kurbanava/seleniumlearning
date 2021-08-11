@@ -1,0 +1,52 @@
+
+implicitlyWait takes two arguments — tt takes the amount of time to wait, and then it also takes a time unit.
+
+Let's say that we entered 30 and then we say for time unit, we would like seconds.
+
+For the whole project:
+
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+
+
+
+
+For the element loading (wait for invisibility of loading indicator in this case):
+
+public void clickStart(){
+        driver.findElement(startButton).click();
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.invisibilityOf(
+                driver.findElement(loadingIndicator)));
+    }
+
+
+
+
+
+Configurable fluentwait (how much to wait, hoe often to check, ingnore exceptions)
+
+FluentWait wait = new FluentWait(driver)
+    .withTimeout(Duration.ofSeconds(5))
+     .pollingEvery(Duration.ofSeconds(1))
+     .ignoring(NoSuchElementException.class);
+
+wait.until(ExpectedConditions.invisibilityOf(
+        driver.findElement(loadingIndicator)));
+
+
+
+
+
+
+ If we do the driver.Manage.timeouts again, let's see what else is here.
+
+ There's also the pageLoadTimeout.
+  The pageLoadTimeout allows you to set the amount of time to wait for a page load to complete before it throws an error.
+  This is also something that you can add to your script at the project level to say,
+ "I would like to wait a certain amount of time for my pages to load."
+
+  Then there's also this setScriptTimeout.
+  This will allow you to set the amount of time to wait for asynchronous scripts to finish executing.
+  Lots of applications are written in JavaScript and there may be some asynchronous actions happening in the background.
+ So, you can set some timeouts using this.

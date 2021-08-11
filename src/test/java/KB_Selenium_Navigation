@@ -1,0 +1,39 @@
+
+driver.navigate().back();
+
+back -which will navigate to the last page visited in the browser's history
+
+forward -which will move forward in the browser's history by one page
+
+refresh -will reload the current page
+
+to -one that takes a String and one that takes a URL. both go directly to the URL specified.
+The to method is very similar to the get method that we've been using.
+However, driver.get waits for the page to load. This to method does not
+
+
+getWindowHandles will return us handles to all of the open windows or tabs.
+
+
+ public void switchToTab(String tabTitle){
+        var windows = driver.getWindowHandles();
+
+        System.out.println("Number of tabs: " + windows.size());
+
+        System.out.println("Window handles:");
+        windows.forEach(System.out::println);
+
+        for(String window : windows){
+            System.out.println("Switching to window: " + window);
+            driver.switchTo().window(window);
+
+            System.out.println("Current window title: " + driver.getTitle());
+
+            if(tabTitle.equals(driver.getTitle())){
+                break;
+            }
+        }
+    }
+
+
+

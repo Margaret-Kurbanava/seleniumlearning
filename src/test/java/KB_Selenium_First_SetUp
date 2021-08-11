@@ -1,0 +1,58 @@
+Basic Selenium Setup:
+
+1. To pom.xml add:
+
+ <!-- java version   -->
+    <properties>
+        <maven.compiler.target>1.11</maven.compiler.target>
+        <maven.compiler.source>1.11</maven.compiler.source>
+    </properties>
+
+    <!-- chromedriver + selenium version   -->
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+    </dependencies>
+
+ ----------------------------------------------------------------------------------------
+
+2. Move driver to resources (just drag and drop)
+
+-----------------------------------------------------------------------------------------
+
+3. Set up the driver:
+
+
+private WebDriver driver;
+
+public void setUp(){
+        System.setProperty("webdriver.chrome.driver","resources/chromedriver.exe");
+        //fist part- just copy as is, second part- specify path to chromedriver
+
+        driver = new ChromeDriver();
+
+        //do some things
+        driver.get("https://the-internet.herokuapp.com/");
+        driver.manage().window().maximize();
+        System.out.println(driver.getTitle());
+
+        //quit
+        driver.quit();
+
+    }
+
+
+-----------------------------------------------------------------------------------------
+
+4. Create psvm
+
+public static void main(String[] args) {
+        BaseTests test = new BaseTests();
+        test.setUp();
+    }
+
+
+

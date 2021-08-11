@@ -1,0 +1,64 @@
+
+driver.findElement(link) - driver.findElement - will search staring from dom
+
+
+caption.findElement(link) - element.findElement - will search within that element. Give a locator within element
+ You can use a given WebElement as the starting point to find descending elements,
+ as opposed to starting the search from the top of the DOM
+
+
+//open the page
+        driver.get("https://the-internet.herokuapp.com/");
+
+
+//get the title of application and print to console
+        System.out.println(driver.getTitle());
+
+
+//close browser
+        driver.quit();
+//There's also a close() method which will just close the window, but not necessarily the session.
+If you call quit(), then it'll close any of the windows that are open and complete out this session.
+
+
+//window managing
+//maximize window
+    driver.manage().window().maximize();
+//full screen
+    driver.manage().window().fullscreen();
+//3 - Specific size (e.g. show Chrome iPhoneX emulator). Note: import Dimension from Selenium
+    Dimension size = new Dimension(375, 812);
+    driver.manage().window().setSize(size);
+
+//WebElement is a Java object used to represent an element on a web page. WebElement object has methods(such as Click)
+//to interact with elements on a page
+
+//findElement- find an element,  store it to a variable, click
+        WebElement inputsLink =driver.findElement(By.linkText("Inputs"));
+        inputsLink.click();
+
+//findElements - find multiple elements, e.g. find all links and count how many links are on the page
+        List<WebElement> links= driver.findElements(By.tagName("a"));
+        System.out.println(links.size());
+
+click
+
+sendKeys to send, getText to get
+
+isDisplayed, which will tell us if that element is actually displayed
+There's clear
+There's some getter methods as well to allow us to get attributes, CSS values, the location
+We can getRect, which is a rectangle
+We can getSize, which gives us dimensions
+The tag name getTagName
+We can see if it's enabled with isEnabled
+We can see if it's selected with isSelected – so this works with radio buttons and checkboxes
+And then there's also a submit
+
+
+
+//js alerts: driver.switchTo().alert().accept();
+
+//Right click
+Actions actions = new Actions(driver);
+actions.contextClick(driver.findElement(hotSpot)).perform();

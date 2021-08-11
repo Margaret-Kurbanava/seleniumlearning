@@ -1,0 +1,74 @@
+under the source [“src”] folder  there are 2 folders:
+
+The main folder is where people typically put their framework
+
+The test folder is where people typically put their tests
+
+
+
+All of your interactions with the web browser — basically all of the coding that's done under the covers of the application — should be in your framework.
+And your test files should just focus on the test itself.
+
+Things like finding the elements and clicking on them are things that should be done in the framework.
+Your test itself wouldn't focus on finding a specific element by its locator.
+
+Your test would do things like specify, “I want to click a link.”
+
+The internals of how that link gets clicked should be in your framework section.
+
+
+
+  Create page object class:
+
+  Create 'By' fields with locators
+
+  Create a field for a driver: private WebDriver driver;
+
+  Create a constructor, which will specify that when you instantiate this class you must pass in the WebDriver,
+  and we'll use that driver in order to interact with the webpage (e.g. to do a findElement passing in By field)
+
+  public class HomePage {
+
+      private WebDriver driver;
+      private By formAuthenticationLink = By.linkText("Form Authentication");
+
+      public HomePage(WebDriver driver){
+          this.driver = driver;
+      }
+  }
+
+
+  What will be passed in here is the actual driver that has launched the browser already.
+  And so the session will already be open and in play, so we'll just continue using that driver to interact with the website.
+
+
+
+  Now we have a driver and can do things:
+  public void clickFormAuthentication(){
+      driver.findElement(formAuthenticationLink).click();
+  }
+
+
+
+
+  It's custom in the page object model design pattern that if your action changes the page then you should return a handle to that new page.
+
+  So, from our method of clicking on that link, we should return a “Login Page” object. Let's do that.
+
+  So instead of void, we're going to change this to LoginPage.
+
+
+  public LoginPage clickFormAuthentication(){
+       driver.findElement(formAuthenticationLink).click();
+       return new LoginPage(driver);
+  }
+
+
+And then we'll just say return new LoginPage(driver) and this will also need a driver because
+all of the pages will need a driver in order to interact with the browser.
+
+We want to pass in this same driver that we already have, that already has an open session,
+and we're going to send that over to the LoginPage so that it can continue to interact with the browser.
+
+
+

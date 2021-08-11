@@ -1,0 +1,21 @@
+
+//create a list of visible case Statuses and collect them to list os strings
+     public List<String> getCaseStatuses(){
+
+        List<WebElement> caseStatuses =  driver.findElements(caseStatus);
+        return caseStatuses.stream().map(e->e.getText()).collect(Collectors.toList());
+    }
+//then use to compare with expected result
+  @Then("Cases are filtered by status")
+    public void casesAreFilteredByStatus() {
+
+        var caseStatuses = allCasesPage.getCaseStatuses();
+        for(String item:caseStatuses){
+            System.out.println(item);
+            assertTrue(item.equalsIgnoreCase(statusOption), "Status Filter problem");
+        }
+    }
+
+
+
+
